@@ -1,25 +1,20 @@
-```javascript
 import { writable } from 'svelte/store';
 
-// Define the initial theme
-const initialTheme = {
+// Default theme
+const defaultTheme = {
   primary: '#ffffff',
   secondary: '#000000'
 };
 
-// Create a writable store for the theme
-export const theme = writable(initialTheme);
+// Create a writable store for theme
+export const theme = writable(defaultTheme);
 
-// Function to toggle the theme
-export function toggleTheme() {
-  theme.update(currentTheme => {
-    return currentTheme.primary === initialTheme.primary ? 
-      { primary: '#000000', secondary: '#ffffff' } : 
-      { ...initialTheme };
-  });
-
-  // Dispatch a custom event to notify other parts of the app
-  const event = new CustomEvent('themeChanged');
-  window.dispatchEvent(event);
+// Function to update the theme
+export function updateTheme(newTheme) {
+  theme.set(newTheme);
 }
-```
+
+// Function to reset the theme to default
+export function resetTheme() {
+  theme.set(defaultTheme);
+}

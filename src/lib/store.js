@@ -1,9 +1,7 @@
-```javascript
 import { writable } from 'svelte/store';
 
-// Store for the current theme
+// Store for the theme
 export const theme = writable('light');
 
-// Store for the timeline data
-export const timelineData = writable([]);
-```
+// Store for the timeline elements
+export const timelineElements = writable([]);

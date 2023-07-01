@@ -1,31 +1,28 @@
 ```svelte
 <script>
-  import { onMount } from 'svelte';
-  import { theme } from '../lib/store.js';
-
-  let currentTheme;
-
-  $: currentTheme = $theme;
+  import { theme } from '../lib/theme.js';
 </script>
 
 <style>
-  body {
-    color: {currentTheme === 'light' ? '#000' : '#fff'};
-    background-color: {currentTheme === 'light' ? '#fff' : '#000'};
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-color);
+    background-color: var(--background-color);
   }
 </style>
 
 <main>
   <h1>Contact Us</h1>
-  <p>Please feel free to reach out to us with any questions or concerns.</p>
-  <form>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" required></textarea>
-    <input type="submit" value="Submit">
-  </form>
+  <p>For any inquiries, please email us at info@timeline.com</p>
 </main>
+
+<script>
+  $: {
+    document.body.style.setProperty('--text-color', theme.textColor);
+    document.body.style.setProperty('--background-color', theme.backgroundColor);
+  }
+</script>
 ```

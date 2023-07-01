@@ -9,40 +9,45 @@ This is a simple vertical timeline website built with SvelteKit and Supabase. Th
 
 ## Design
 
-The design is clean and simple, with a two-color system that users can switch between.
+The design is clean and simple, with a two-color theme system that users can switch between.
 
 ## Local Development Setup
 
 Follow these steps to set up the development environment locally:
 
-1. Clone the repository:
+1. Clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/your-repo/timeline-website.git
+git clone <repository-url>
 ```
 
-2. Navigate into the project directory:
+2. Navigate to the project directory.
 
 ```bash
 cd timeline-website
 ```
 
-3. Install the dependencies:
+3. Install the necessary dependencies.
 
 ```bash
 npm install
 ```
 
-4. Set up your Supabase project and get the URL and public anon key. Replace the placeholders in `supabase/init.js` with your actual Supabase URL and key.
+4. Create a `.env` file in the root directory of the project and add your Supabase URL and public anon key.
 
-5. Start the development server:
+```bash
+SUPABASE_URL=your-supabase-url
+SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+5. Start the development server.
 
 ```bash
 npm run dev
 ```
 
-Now, you can visit `http://localhost:5000` to view the app.
+Now, you can open your browser and navigate to `http://localhost:5000` to see the application running.
 
 ## Note
 
-Remember to remove `Svelte` from all `.svelte` files before running the app.
+If you encounter an error related to npm not being able to find a file, ensure that you are in the correct directory where `package.json` is located.

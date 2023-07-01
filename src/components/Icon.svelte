@@ -1,8 +1,7 @@
 ```svelte
 <script>
-  import { iconMap } from '../lib/icons.js';
-  export let name = '';
+  export let icon;
 </script>
 
-<svelte:component this={iconMap[name]} />
+<i class={icon}></i>
 ```

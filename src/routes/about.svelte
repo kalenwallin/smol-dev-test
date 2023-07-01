@@ -1,28 +1,18 @@
 ```svelte
 <script>
-  import { theme } from '../lib/store.js';
+  import { theme } from '../lib/theme.js';
 </script>
 
 <style>
   main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    color: var(--primary);
-  }
-
-  p {
-    color: var(--secondary);
+    color: {$theme.primary};
+    background-color: {$theme.secondary};
   }
 </style>
 
 <main>
   <h1>About</h1>
-  <p>Welcome to our Timeline Website. This website allows you to create a simple vertical timeline that animates as you scroll down the page. Elements appear on both the left and right sides of the line in an alternating style. Each element has a title, description, and date. Elements also have an icon that describes its use.</p>
+  <p>This is a simple vertical timeline website. As you scroll down the page, elements will animate and appear on both the left and right sides of the line in an alternating style. Each element has a title, description, and date. Elements also have an icon that describes their use. For example, if the element links to a website, the icon will be a browser.</p>
   <p>You can choose the theme of the website using a two-color system. Enjoy!</p>
 </main>
 ```

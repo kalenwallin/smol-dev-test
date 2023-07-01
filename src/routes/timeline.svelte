@@ -1,29 +1,54 @@
 ```svelte
 <script>
   import { onMount } from 'svelte';
-  import { timelineData } from '../lib/store.js';
+  import { db } from '../lib/database.js';
   import TimelineElement from '../components/TimelineElement.svelte';
-  import { fetchTimelineData } from '../lib/api.js';
+  
+  let timelineElements = [];
 
-  let data = [];
+  async function fetchTimelineElements() {
+    const { data, error } = await db.from('timeline').select('*').order('date', { ascending: false });
+    if (error) {
+      console.error(error);
+    } else {
+      timelineElements = data;
+    }
+  }
 
-  onMount(async () => {
-    data = await fetchTimelineData();
-    timelineData.set(data);
-  });
+  onMount(fetchTimelineElements);
+
+  function animateTimeline() {
+    const elements = document.querySelectorAll('.timeline-element');
+    const windowHeight = window.innerHeight;
+    window.addEventListener('scroll', () => {
+      elements.forEach(element => {
+        const distanceFromTop = element.getBoundingClientRect().top;
+        if (distanceFromTop - windowHeight <= 0) {
+          element.classList.add('animate');
+        }
+      });
+    });
+  }
+
+  onMount(animateTimeline);
 </script>
 
 <style>
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .timeline-element:nth-child(odd) {
+    text-align: right;
+  }
+  .timeline-element:nth-child(even) {
+    text-align: left;
+  }
+  .animate {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 
-<div id="timeline" class="timeline">
-  {#each $timelineData as element, index (element.id)}
-    <TimelineElement {element} {index} />
+<div id="timeline">
+  {#each timelineElements as element (element.id)}
+    <TimelineElement class="timeline-element" {element} />
   {/each}
 </div>
 ```

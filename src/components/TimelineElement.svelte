@@ -1,50 +1,62 @@
 ```svelte
 <script>
-  import { onMount } from 'svelte';
+  import { theme } from '../lib/theme.js';
   import Icon from './Icon.svelte';
-  export let element;
 
-  let isVisible = false;
-
-  onMount(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
-    });
-
-    observer.observe($$self);
-    return () => observer.disconnect();
-  });
+  export let title = '';
+  export let description = '';
+  export let date = '';
+  export let icon = '';
+  export let side = 'left';
 </script>
 
-<div class="timeline-element" class:visible={isVisible}>
-  <div class="timeline-icon">
-    <Icon {element.icon} />
+<div class="timeline-element {side}" style="color: {theme.primary}; background-color: {theme.secondary}">
+  <div class="timeline-element-icon">
+    <Icon name="{icon}" />
   </div>
-  <div class="timeline-content">
-    <h2>{element.title}</h2>
-    <p>{element.description}</p>
-    <span class="date">{element.date}</span>
+  <div class="timeline-element-content">
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <span>{date}</span>
   </div>
 </div>
 
 <style>
   .timeline-element {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    margin-bottom: 2em;
+    border-radius: 0.5em;
   }
-  .timeline-element.visible {
-    opacity: 1;
-    transform: translateY(0);
+
+  .timeline-element.left {
+    flex-direction: row;
   }
-  .timeline-icon {
-    /* styles for the icon */
+
+  .timeline-element.right {
+    flex-direction: row-reverse;
   }
-  .timeline-content {
-    /* styles for the content */
+
+  .timeline-element-icon {
+    flex-shrink: 0;
+    margin-right: 1em;
   }
-  .date {
-    /* styles for the date */
+
+  .timeline-element-content h2 {
+    margin: 0;
+    margin-bottom: 0.5em;
+  }
+
+  .timeline-element-content p {
+    margin: 0;
+    margin-bottom: 0.5em;
+  }
+
+  .timeline-element-content span {
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.6);
   }
 </style>
 ```
