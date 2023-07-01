@@ -1,6 +1,6 @@
 ```svelte
 <script>
-  import { getIcon } from '../lib/icons.js';
+  import Icon from './Icon.svelte';
   export let element;
 </script>
 
@@ -16,30 +16,18 @@
     flex-direction: row-reverse;
   }
 
-  .icon {
-    font-size: 2em;
-  }
-
   @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 </style>
 
 <div class="timeline-element">
-  <div class="icon">
-    {#await getIcon(element.icon)}
-      <p>Loading...</p>
-    {:then icon}
-      {@html icon}
-    {:catch error}
-      <p>Error loading icon</p>
-    {/await}
-  </div>
-  <div class="content">
+  <Icon type={element.icon} />
+  <div>
     <h2>{element.title}</h2>
     <p>{element.description}</p>
-    <p>{element.date}</p>
+    <time>{element.date}</time>
   </div>
 </div>
 ```

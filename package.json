@@ -1,0 +1,30 @@
+{
+  "name": "timeline-website",
+  "version": "1.0.0",
+  "description": "A simple vertical timeline website with theme switcher",
+  "main": "src/routes/index.svelte",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "start": "svelte-kit start"
+  },
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "timeline",
+    "website",
+    "theme-switcher"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sveltejs/kit": "^1.0.0-next.11",
+    "svelte": "^3.29.0",
+    "@supabase/supabase-js": "^1.11.6"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.6",
+    "vite": "^2.1.5"
+  },
+  "svelte": "src/routes/index.svelte"
+}

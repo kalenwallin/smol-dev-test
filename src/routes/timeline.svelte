@@ -1,38 +1,36 @@
 ```svelte
 <script>
   import { onMount } from 'svelte';
-  import { timelineData } from '../lib/db.js';
+  import { db } from '../lib/database.js';
+  import { theme } from '../lib/store.js';
   import TimelineElement from '../components/TimelineElement.svelte';
   import ThemeSwitcher from '../components/ThemeSwitcher.svelte';
 
   let elements = [];
 
   onMount(async () => {
-    elements = await timelineData();
+    elements = await db.getTimelineElements();
   });
+
+  function addElement(element) {
+    db.addElement(element);
+    elements = [...elements, element];
+  }
 </script>
 
-<ThemeSwitcher />
+<ThemeSwitcher id="theme-switcher" {theme} />
 
 <div id="timeline">
-  {#each elements as element, index (element.id)}
-    <TimelineElement
-      title={element.title}
-      description={element.description}
-      date={element.date}
-      icon={element.icon}
-      side={index % 2 === 0 ? 'left' : 'right'}
-    />
+  {#each elements as element (element.id)}
+    <TimelineElement {element} />
   {/each}
 </div>
 
 <style>
   #timeline {
-    position: relative;
-    margin: 0 auto;
-    padding: 50px 0;
-    width: 80%;
-    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 </style>
 ```
