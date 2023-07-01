@@ -1,54 +1,45 @@
 ```svelte
 <script>
   import { onMount } from 'svelte';
-  import { db } from '../lib/database.js';
+  import { timelineData } from '../lib/store.js';
+  import { fetchTimelineData } from '../lib/api.js';
+  import { getIcon } from '../lib/icons.js';
   import TimelineElement from '../components/TimelineElement.svelte';
-  
-  let timelineElements = [];
 
-  async function fetchTimelineElements() {
-    const { data, error } = await db.from('timeline').select('*').order('date', { ascending: false });
-    if (error) {
-      console.error(error);
-    } else {
-      timelineElements = data;
-    }
-  }
+  let elements = [];
 
-  onMount(fetchTimelineElements);
+  onMount(async () => {
+    elements = await fetchTimelineData();
+    animateTimeline();
+  });
 
   function animateTimeline() {
-    const elements = document.querySelectorAll('.timeline-element');
-    const windowHeight = window.innerHeight;
-    window.addEventListener('scroll', () => {
-      elements.forEach(element => {
-        const distanceFromTop = element.getBoundingClientRect().top;
-        if (distanceFromTop - windowHeight <= 0) {
-          element.classList.add('animate');
-        }
-      });
-    });
-  }
+    const timelineContainer = document.getElementById('timeline-container');
+    let lastScrollTop = 0;
 
-  onMount(animateTimeline);
+    timelineContainer.addEventListener('scroll', () => {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop) {
+        // downscroll code
+        timelineContainer.classList.add('animate-down');
+      } else {
+        // upscroll code
+        timelineContainer.classList.add('animate-up');
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    }, false);
+  }
 </script>
 
-<style>
-  .timeline-element:nth-child(odd) {
-    text-align: right;
-  }
-  .timeline-element:nth-child(even) {
-    text-align: left;
-  }
-  .animate {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-
-<div id="timeline">
-  {#each timelineElements as element (element.id)}
-    <TimelineElement class="timeline-element" {element} />
+<div id="timeline-container">
+  {#each elements as element (element.id)}
+    <TimelineElement
+      title={element.title}
+      description={element.description}
+      date={element.date}
+      icon={getIcon(element.icon)}
+      side={element.id % 2 === 0 ? 'left' : 'right'}
+    />
   {/each}
 </div>
 ```

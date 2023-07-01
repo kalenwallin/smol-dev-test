@@ -1,7 +1,23 @@
 import { writable } from 'svelte/store';
 
-// Store for the theme
-export const theme = writable('light');
+// Initial theme
+const initialTheme = {
+  primary: '#ffffff',
+  secondary: '#000000'
+};
 
-// Store for the timeline elements
-export const timelineElements = writable([]);
+// Theme store
+export const theme = writable(initialTheme);
+
+// Function to update theme
+export function updateTheme(newTheme) {
+  theme.set(newTheme);
+}
+
+// Timeline data store
+export const timelineData = writable([]);
+
+// Function to update timeline data
+export function updateTimelineData(newData) {
+  timelineData.set(newData);
+}

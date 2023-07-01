@@ -1,24 +1,23 @@
 {
   "name": "timeline-website",
   "version": "1.0.0",
-  "description": "A simple vertical timeline website built with SvelteKit and Supabase",
+  "description": "A simple vertical timeline website that animates as the user scrolls down the page.",
   "main": "src/routes/index.svelte",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "start": "svelte-kit start"
   },
-  "keywords": ["sveltekit", "supabase", "timeline", "website"],
+  "keywords": ["sveltekit", "timeline", "website", "supabase"],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sveltejs/kit": "next",
-    "svelte": "^3.0.0",
+    "@sveltejs/kit": "^1.0.0-next.100",
+    "svelte": "^3.34.0",
     "@supabase/supabase-js": "^1.11.6"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.0",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.6",
     "vite": "^2.1.5"
-  },
-  "svelte": "src/routes/index.svelte"
+  }
 }
