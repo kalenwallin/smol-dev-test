@@ -1,42 +1,32 @@
 ```svelte
 <script>
-  import { theme } from '../lib/store.js';
-  import { switchTheme } from '../lib/theme.js';
+  import { theme, toggleTheme } from '../lib/theme.js';
+  import { onMount } from 'svelte';
 
   let currentTheme;
 
-  $: currentTheme = $theme;
+  onMount(async () => {
+    currentTheme = $theme;
+  });
 
-  function handleThemeChange() {
-    switchTheme();
-  }
+  const handleThemeChange = () => {
+    toggleTheme();
+    currentTheme = $theme;
+  };
 </script>
 
-<div id="theme-switcher">
-  <button on:click={handleThemeChange}>
-    Switch to {$theme === 'light' ? 'dark' : 'light'} theme
-  </button>
+<div id="theme-switcher" on:click={handleThemeChange}>
+  <p>Current Theme: {currentTheme}</p>
 </div>
 
 <style>
   #theme-switcher {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-  }
-
-  #theme-switcher button {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border: none;
+    cursor: pointer;
     padding: 10px;
     border-radius: 5px;
-    cursor: pointer;
-  }
-
-  #theme-switcher button:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
   }
 </style>
 ```

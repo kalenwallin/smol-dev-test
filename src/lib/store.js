@@ -1,9 +1,9 @@
 ```javascript
 import { writable } from 'svelte/store';
 
-// Create a writable store for theme
-export const theme = writable({
-  primary: '#ffffff',
-  secondary: '#000000'
-});
+// Store for the current theme
+export const theme = writable('light');
+
+// Store for the timeline data
+export const timelineData = writable([]);
 ```

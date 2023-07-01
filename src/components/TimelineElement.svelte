@@ -1,33 +1,50 @@
 ```svelte
 <script>
+  import { onMount } from 'svelte';
   import Icon from './Icon.svelte';
   export let element;
+
+  let isVisible = false;
+
+  onMount(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    });
+
+    observer.observe($$self);
+    return () => observer.disconnect();
+  });
 </script>
+
+<div class="timeline-element" class:visible={isVisible}>
+  <div class="timeline-icon">
+    <Icon {element.icon} />
+  </div>
+  <div class="timeline-content">
+    <h2>{element.title}</h2>
+    <p>{element.description}</p>
+    <span class="date">{element.date}</span>
+  </div>
+</div>
 
 <style>
   .timeline-element {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    animation: fadeIn 1s ease-in-out;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-in-out;
   }
-
-  .timeline-element:nth-child(odd) {
-    flex-direction: row-reverse;
+  .timeline-element.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .timeline-icon {
+    /* styles for the icon */
+  }
+  .timeline-content {
+    /* styles for the content */
+  }
+  .date {
+    /* styles for the date */
   }
 </style>
-
-<div class="timeline-element">
-  <Icon type={element.icon} />
-  <div>
-    <h2>{element.title}</h2>
-    <p>{element.description}</p>
-    <time>{element.date}</time>
-  </div>
-</div>
 ```
