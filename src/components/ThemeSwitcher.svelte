@@ -1,26 +1,22 @@
-```svelte
 <script>
-  import { theme } from '../lib/theme.js';
+  import { theme, updateTheme } from '../lib/store.js';
 
-  let selectedTheme = $theme;
+  let selectedTheme;
 
-  function switchTheme() {
-    selectedTheme = selectedTheme === 'light' ? 'dark' : 'light';
-    theme.set(selectedTheme);
+  const changeTheme = () => {
+    updateTheme(selectedTheme);
   }
 </script>
 
+<select id="theme-switcher" bind:value={selectedTheme} on:change={changeTheme}>
+  <option value="light">Light</option>
+  <option value="dark">Dark</option>
+</select>
+
 <style>
-  .theme-switcher {
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+  #theme-switcher {
+    position: fixed;
+    top: 10px;
+    right: 10px;
   }
 </style>
-
-<div id="theme-switcher" class="theme-switcher" on:click={switchTheme}>
-  {selectedTheme === 'light' ? 'Switch to Dark Theme' : 'Switch to Light Theme'}
-</div>
-```

@@ -1,62 +1,43 @@
 ```svelte
 <script>
-  import { theme } from '../lib/theme.js';
-  import Icon from './Icon.svelte';
-
-  export let title = '';
-  export let description = '';
-  export let date = '';
-  export let icon = '';
-  export let side = 'left';
+  import { getIcon } from '../lib/icons.js';
+  export let element;
 </script>
-
-<div class="timeline-element {side}" style="color: {theme.primary}; background-color: {theme.secondary}">
-  <div class="timeline-element-icon">
-    <Icon name="{icon}" />
-  </div>
-  <div class="timeline-element-content">
-    <h2>{title}</h2>
-    <p>{description}</p>
-    <span>{date}</span>
-  </div>
-</div>
 
 <style>
   .timeline-element {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1em;
-    margin-bottom: 2em;
-    border-radius: 0.5em;
+    margin-bottom: 2rem;
   }
-
-  .timeline-element.left {
-    flex-direction: row;
-  }
-
-  .timeline-element.right {
+  .timeline-element:nth-child(odd) {
     flex-direction: row-reverse;
   }
-
-  .timeline-element-icon {
-    flex-shrink: 0;
-    margin-right: 1em;
+  .icon {
+    width: 2rem;
+    height: 2rem;
   }
-
-  .timeline-element-content h2 {
-    margin: 0;
-    margin-bottom: 0.5em;
+  .content {
+    flex: 1;
+    margin: 0 1rem;
   }
-
-  .timeline-element-content p {
-    margin: 0;
-    margin-bottom: 0.5em;
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
   }
-
-  .timeline-element-content span {
-    font-size: 0.8em;
-    color: rgba(0, 0, 0, 0.6);
+  .date {
+    font-size: 0.875rem;
+    color: var(--secondary-color);
   }
 </style>
+
+<div class="timeline-element">
+  <img class="icon" src={getIcon(element.icon)} alt={element.title} />
+  <div class="content">
+    <h2 class="title">{element.title}</h2>
+    <p class="description">{element.description}</p>
+    <p class="date">{element.date}</p>
+  </div>
+</div>
 ```

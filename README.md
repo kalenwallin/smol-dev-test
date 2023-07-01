@@ -1,6 +1,6 @@
 # Timeline Website
 
-This is a simple vertical timeline website built with SvelteKit and Supabase. The timeline animates as the user scrolls down the page, with elements appearing on both the left and right sides of the line in an alternating style. Each element has a title, description, date, and an icon that describes its use.
+This is a simple vertical timeline website that animates as the user scrolls down the page. Elements appear on both the left and right sides of the line in alternating style. Each element has a title, description, date, and an icon that describes its use. For example, if the element links to a website, the icon is a browser.
 
 ## Tech Stack
 
@@ -9,45 +9,35 @@ This is a simple vertical timeline website built with SvelteKit and Supabase. Th
 
 ## Design
 
-The design is clean and simple, with a two-color theme system that users can switch between.
+The design is clean and simple. Users can choose the theme using a two-color system.
 
-## Local Development Setup
+## Getting Started
 
-Follow these steps to set up the development environment locally:
+1. Clone the repository
+2. Install the dependencies with `npm install`
+3. Start the development server with `npm run dev`
 
-1. Clone the repository to your local machine.
+## File Structure
 
-```bash
-git clone <repository-url>
-```
+- `src/routes/index.svelte`: The main entry point of the application.
+- `src/routes/_layout.svelte`: The layout file for the application.
+- `src/routes/timeline.svelte`: The timeline page.
+- `src/components/TimelineElement.svelte`: The component for each timeline element.
+- `src/components/ThemeSwitcher.svelte`: The component for the theme switcher.
+- `src/lib/store.js`: The store file for managing state.
+- `src/lib/api.js`: The API file for fetching data from the database.
+- `src/lib/icons.js`: The file for managing icons.
+- `src/lib/utils.js`: The utility file for helper functions.
+- `static/global.css`: The global CSS file.
+- `static/theme.css`: The CSS file for themes.
+- `src/lib/db.js`: The database file for managing database schemas.
+- `svelte.config.js`: The configuration file for Svelte.
+- `package.json`: The package file for managing dependencies.
 
-2. Navigate to the project directory.
+## Contributing
 
-```bash
-cd timeline-website
-```
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-3. Install the necessary dependencies.
+## License
 
-```bash
-npm install
-```
-
-4. Create a `.env` file in the root directory of the project and add your Supabase URL and public anon key.
-
-```bash
-SUPABASE_URL=your-supabase-url
-SUPABASE_ANON_KEY=your-supabase-anon-key
-```
-
-5. Start the development server.
-
-```bash
-npm run dev
-```
-
-Now, you can open your browser and navigate to `http://localhost:5000` to see the application running.
-
-## Note
-
-If you encounter an error related to npm not being able to find a file, ensure that you are in the correct directory where `package.json` is located.
+[MIT](https://choosealicense.com/licenses/mit/)

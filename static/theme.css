@@ -1,0 +1,28 @@
+:root {
+    --primary-color: #3f51b5;
+    --secondary-color: #f44336;
+}
+
+[data-theme="theme1"] {
+    --primary-color: #4caf50;
+    --secondary-color: #ffeb3b;
+}
+
+[data-theme="theme2"] {
+    --primary-color: #9c27b0;
+    --secondary-color: #03a9f4;
+}
+
+[data-theme="theme3"] {
+    --primary-color: #e91e63;
+    --secondary-color: #cddc39;
+}
+
+.timeline-element {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.timeline-element .icon {
+    fill: var(--secondary-color);
+}

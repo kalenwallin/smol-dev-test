@@ -1,29 +1,18 @@
+```svelte
 <script>
   import { onMount } from 'svelte';
-  import { theme } from '../lib/theme.js';
+  import { timelineData } from '../lib/store.js';
+  import { fetchTimelineData } from '../lib/api.js';
+  import Timeline from './timeline.svelte';
   import ThemeSwitcher from '../components/ThemeSwitcher.svelte';
 
-  let currentTheme;
-
   onMount(async () => {
-    currentTheme = $theme;
+    timelineData.set(await fetchTimelineData());
   });
 </script>
 
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    color: var(--text-color);
-    background-color: var(--background-color);
-  }
-</style>
-
 <main>
-  <h1>Welcome to the Timeline Website</h1>
-  <p>Scroll down to explore the timeline.</p>
-  <ThemeSwitcher {currentTheme} />
+  <ThemeSwitcher id="theme-switcher" />
+  <Timeline id="timeline-container" {timelineData} />
 </main>
+```
